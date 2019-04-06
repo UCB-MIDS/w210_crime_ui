@@ -452,6 +452,9 @@
 {% if admin_view.name=="Home" %}
   <script src="{{url_for('static',filename='js/pages/dashboard.js')}}"></script>
 {% endif %}
+{% if admin_view.name=="Patrol Deployments" %}
+  <script src="{{url_for('static',filename='js/pages/planning.js')}}"></script>
+{% endif %}
 
 {% endblock tail_js%}
 
