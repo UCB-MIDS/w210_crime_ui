@@ -104,83 +104,83 @@ class CustomView(BaseView):
 ### POLICE DEPLOYMENT Model
 
 communities = { 'community': [
-                    ('01', 'Rogers Park'),
-                    ('02', 'West Ridge'),
-                    ('03', 'Uptown'),
-                    ('04', 'Lincoln Square'),
-                    ('05', 'North Center'),
-                    ('06', 'Lake View'),
-                    ('07', 'Lincoln Park'),
-                    ('08', 'Near North Side'),
-                    ('09', 'Edison Park'),
-                    ('10', 'Norwood Park'),
-                    ('11', 'Jefferson Park'),
-                    ('12', 'Forest Glen'),
-                    ('13', 'North Park'),
-                    ('14', 'Albany Park'),
-                    ('15', 'Portage Park'),
-                    ('16', 'Irving Park'),
-                    ('17', 'Dunning'),
-                    ('18', 'Montclare'),
-                    ('19', 'Belmont Cragin'),
-                    ('20', 'Hermosa'),
-                    ('21', 'Avondale'),
-                    ('22', 'Logan Square'),
-                    ('23', 'Humboldt Park'),
-                    ('24', 'West Town'),
-                    ('25', 'Austin'),
-                    ('26', 'West Garfield Park'),
-                    ('27', 'East Garfield Park'),
-                    ('28', 'Near West Side'),
-                    ('29', 'North Lawndale'),
-                    ('30', 'South Lawndale'),
-                    ('31', 'Lower West Side'),
-                    ('32', 'The Loop'),
-                    ('33', 'Near South Side'),
-                    ('34', 'Armour Square'),
-                    ('35', 'Douglas'),
-                    ('36', 'Oakland'),
-                    ('37', 'Fuller Park'),
-                    ('38', 'Grand Boulevard'),
-                    ('39', 'Kenwood'),
-                    ('40', 'Washington Park'),
-                    ('41', 'Hyde Park'),
-                    ('42', 'Woodlawn'),
-                    ('43', 'South Shore'),
-                    ('44', 'Chatham'),
-                    ('45', 'Avalon Park'),
-                    ('46', 'South Chicago'),
-                    ('47', 'Burnside'),
-                    ('48', 'Calumet Heights'),
-                    ('49', 'Roseland'),
-                    ('50', 'Pullman'),
-                    ('51', 'South Deering'),
-                    ('52', 'East Side'),
-                    ('53', 'West Pullman'),
-                    ('54', 'Riverdale'),
-                    ('55', 'Hegewisch'),
-                    ('56', 'Garfield Ridge'),
-                    ('57', 'Archer Heights'),
-                    ('58', 'Brighton Park'),
-                    ('59', 'McKinley Park'),
-                    ('60', 'Bridgeport'),
-                    ('61', 'New City'),
-                    ('62', 'West Elsdon'),
-                    ('63', 'Gage Park'),
-                    ('64', 'Clearing'),
-                    ('65', 'West Lawn'),
-                    ('66', 'Chicago Lawn'),
-                    ('67', 'West Englewood'),
-                    ('68', 'Englewood'),
-                    ('69', 'Greater Grand Crossing'),
-                    ('70', 'Ashburn'),
-                    ('71', 'Auburn Gresham'),
-                    ('72', 'Beverly'),
-                    ('73', 'Washington Heights'),
-                    ('74', 'Mount Greenwood'),
-                    ('75', 'Morgan Park'),
-                    ('76', 'O\'Hare'),
-                    ('77', 'Edgewater')
+                    ('01', 'Rogers Park', 0),
+                    ('02', 'West Ridge', 0),
+                    ('03', 'Uptown', 0),
+                    ('04', 'Lincoln Square', 0),
+                    ('05', 'North Center', 0),
+                    ('06', 'Lakeview', 0),
+                    ('07', 'Lincoln Park', 0),
+                    ('08', 'Near North Side', 0),
+                    ('09', 'Edison Park', 0),
+                    ('10', 'Norwood Park', 0),
+                    ('11', 'Jefferson Park', 0),
+                    ('12', 'Forest Glen', 0),
+                    ('13', 'North Park', 0),
+                    ('14', 'Albany Park', 2),
+                    ('15', 'Portage Park', 0),
+                    ('16', 'Irving Park', 2),
+                    ('17', 'Dunning', 0),
+                    ('18', 'Montclare', 2),
+                    ('19', 'Belmont Cragin', 2),
+                    ('20', 'Hermosa', 2),
+                    ('21', 'Avondale', 2),
+                    ('22', 'Logan Square', 2),
+                    ('23', 'Humboldt Park', 2),
+                    ('24', 'West Town', 0),
+                    ('25', 'Austin', 3),
+                    ('26', 'West Garfield Park', 3),
+                    ('27', 'East Garfield Park', 3),
+                    ('28', 'Near West Side', 0),
+                    ('29', 'North Lawndale', 3),
+                    ('30', 'South Lawndale', 2),
+                    ('31', 'Lower West Side', 2),
+                    ('32', 'The Loop', 0),
+                    ('33', 'Near South Side', 0),
+                    ('34', 'Armour Square', 1),
+                    ('35', 'Douglas', 3),
+                    ('36', 'Oakland', 3),
+                    ('37', 'Fuller Park', 3),
+                    ('38', 'Grand Boulevard', 3),
+                    ('39', 'Kenwood', 3),
+                    ('40', 'Washington Park', 3),
+                    ('41', 'Hyde Park', 0),
+                    ('42', 'Woodlawn', 3),
+                    ('43', 'South Shore', 3),
+                    ('44', 'Chatham', 3),
+                    ('45', 'Avalon Park', 3),
+                    ('46', 'South Chicago', 3),
+                    ('47', 'Burnside', 3),
+                    ('48', 'Calumet Heights', 3),
+                    ('49', 'Roseland', 3),
+                    ('50', 'Pullman', 3),
+                    ('51', 'South Deering', 3),
+                    ('52', 'East Side', 2),
+                    ('53', 'West Pullman', 3),
+                    ('54', 'Riverdale', 3),
+                    ('55', 'Hegewisch', 2),
+                    ('56', 'Garfield Ridge', 2),
+                    ('57', 'Archer Heights', 2),
+                    ('58', 'Brighton Park', 2),
+                    ('59', 'McKinley Park', 2),
+                    ('60', 'Bridgeport', 1),
+                    ('61', 'New City', 2),
+                    ('62', 'West Elsdon', 2),
+                    ('63', 'Gage Park', 2),
+                    ('64', 'Clearing', 2),
+                    ('65', 'West Lawn', 2),
+                    ('66', 'Chicago Lawn', 2),
+                    ('67', 'West Englewood', 3),
+                    ('68', 'Englewood', 3),
+                    ('69', 'Greater Grand Crossing', 3),
+                    ('70', 'Ashburn', 3),
+                    ('71', 'Auburn Gresham', 3),
+                    ('72', 'Beverly', 0),
+                    ('73', 'Washington Heights', 3),
+                    ('74', 'Mount Greenwood', 0),
+                    ('75', 'Morgan Park', 3),
+                    ('76', 'O\'Hare', 0),
+                    ('77', 'Edgewater', 0)
                 ]}
 
 districts = {1: dict(id=1, name='1st District – Central', address='1718 South State Street', zipcode='60616', community='33', patrols=6),
@@ -211,15 +211,33 @@ class Community(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.Integer)
     name = db.Column(db.String(255))
+    ethnicity = db.Column(db.Integer)
 
     def __str__(self):
         return self.name
 
+def ethnicity_formatter(view, context, model, name):
+    db_value = getattr(model, name)
+    ethnicity = {
+                    0: 'White',
+                    1: 'Asian',
+                    2: 'Hispanic/Latin',
+                    3: 'Black'
+                }
+    return ethnicity[db_value]
+
 class CommunityView(MyModelView):
-    column_editable_list = ['code', 'name']
+    column_editable_list = ['code', 'name', 'ethnicity']
     column_searchable_list = column_editable_list
     column_filters = column_editable_list
-    column_labels = dict(code='Community Code', name='Community Name')
+    column_labels = dict(code='Community Code', name='Community Name', ethnicity='Ethnicity Majority')
+    form_choices = {'ethnicity':[
+                                    (0, 'White'),
+                                    (1, 'Asian'),
+                                    (2, 'Hispanic/Latin'),
+                                    (3, 'Black')
+                                ]}
+    column_formatters = {'ethnicity': ethnicity_formatter}
 
 class PoliceDistrict(db.Model):
     __tablename__ = 'policedistrict'
@@ -254,6 +272,14 @@ class Distance(db.Model):
 
     def __str__(self):
         return self.id
+
+class DistanceView(MyModelView):
+    column_list = ['name', 'district_rel', 'community_rel', 'distance']
+    column_editable_list = ['name', 'district', 'community', 'distance']
+    column_searchable_list = column_editable_list
+    column_filters = column_editable_list
+    column_labels = dict(name='Route', district_rel='District', community_rel='Community', distance='Distance Between District and Community')
+    form_choices = communities
 
 class PatrolDeployment(db.Model):
     __tablename__ = 'patroldeployment'
@@ -290,9 +316,10 @@ admin = flask_admin.Admin(
 # Add model views
 admin.add_view(MyModelView(Role, db.session, menu_icon_type='fa', menu_icon_value='fa-server', name="Roles"))
 admin.add_view(UserView(User, db.session, menu_icon_type='fa', menu_icon_value='fa-users', name="Users"))
-admin.add_view(CommunityView(Community, db.session, menu_icon_type='fa', menu_icon_value='fa-map-o', name="Communities"))
+admin.add_view(CommunityView(Community, db.session, menu_icon_type='fa', menu_icon_value='fa-map-marker', name="Communities"))
 admin.add_view(PoliceDistrictView(PoliceDistrict, db.session, menu_icon_type='fa', menu_icon_value='fa-bank', name="Police Districts"))
-admin.add_view(PatrolDeploymentView(name="Patrol Deployments", endpoint='planning', menu_icon_type='fa', menu_icon_value='fa-connectdevelop',))
+admin.add_view(DistanceView(Distance, db.session, menu_icon_type='fa', menu_icon_value='fa-map', name="Distances"))
+admin.add_view(PatrolDeploymentView(name="Patrol Deployments", endpoint='planning', menu_icon_type='fa', menu_icon_value='fa-location-arrow',))
 
 # define a context processor for merging flask-admin's template context into the
 # flask-security views.
@@ -356,7 +383,7 @@ def build_db():
 
 
         for c in communities['community']:
-            db.session.add(Community(code=c[0], name=c[1]))
+            db.session.add(Community(code=c[0], name=c[1], ethnicity=c[2]))
 
         for district in districts:
             db.session.add(PoliceDistrict(id=district,
@@ -366,14 +393,14 @@ def build_db():
                                           community=districts[district]['community'],
                                           patrols=districts[district]['patrols']))
             for c in communities['community']:
-                api_key = 'mSK2RhhZ7WDv6OLxggkXESpwfzDZOPep'
+                api_key = 'zVemlrNXSpIBnR9nfJcVUTqhjPI4Y33f'
                 source = districts[district]['address'] + ", Chicago, IL, " + districts[district]['zipcode']
                 destination = c[1] + ", Chicago, IL"
                 payload = json.dumps({"locations": [source,destination]})
                 url ='http://www.mapquestapi.com/directions/v2/routematrix?key='
-                #r = requests.post(url + api_key, data=payload)
-                #dist = r.json()['distance'][1]
-                dist = 0
+                r = requests.post(url + api_key, data=payload)
+                dist = r.json()['distance'][1]
+                #dist = 0
                 db.session.add(Distance(name=districts[district]['name'] + ' to ' + c[1],
                                         district=district,
                                         community=c[0],

@@ -23,7 +23,7 @@
       <!-- small box -->
       <div class="small-box bg-aqua">
         <div class="inner">
-          <h3>153</h3>
+          <h3 id="kpi-coverage">--<sup style="font-size: 20px">%</sup></h3>
           <p>of Predicted Crimes Covered</p>
       </div>
       <div class="icon">
@@ -37,7 +37,7 @@
   <!-- small box -->
   <div class="small-box bg-green">
     <div class="inner">
-      <h3>53<sup style="font-size: 20px">%</sup></h3>
+      <h3 id="kpi-fairness">--<sup style="font-size: 20px">%</sup></h3>
 
       <p>Patrol Deployment Fairness</p>
   </div>
@@ -52,7 +52,7 @@
   <!-- small box -->
   <div class="small-box bg-yellow">
     <div class="inner">
-      <h3>53<sup style="font-size: 20px">%</sup></h3>
+      <h3 id="kpi-distance">---</h3>
 
       <p>Total Miles of Patrol Drive</p>
   </div>
@@ -86,28 +86,14 @@
               <i class="fa fa-map-marker"></i>
 
               <h3 class="box-title">
-                Patrol Deployment Map View
+                Crime Coverage Map View
             </h3>
         </div>
         <div class="box-body">
           <div id="world-map" style="height: 500px; width: 100%;"></div>
       </div>
       <!-- /.box-body-->
-      <div class="box-footer no-border">
-          <div class="row">
-            <div class="col-xs-12 text-center" style="border-right: 1px solid #f4f4f4">
-              <div class="clearfix" style="color: black">
-                <span class="pull-left" id="status-message">Task #1</span>
-                <small class="pull-right" id="status-pct">90%</small>
-            </div>
-            <div class="progress xs">
-                <div class="progress-bar progress-bar-green" style="width: 90%;" id="status-bar"></div>
-            </div>
-          </div>
-          <!-- ./col -->
-      </div>
-      <!-- /.row -->
-    </div>
+
     </div>
     <!-- /.box -->
 
@@ -117,6 +103,66 @@
 <!-- right col (We are only adding the ID to make the widgets sortable)-->
 <section class="col-lg-7 connectedSortable">
 
+  <div class="box box-info">
+      <div class="box-header">
+        <i class="fa fa-envelope"></i>
+
+        <h3 class="box-title">Deployment Planning</h3>
+        <!-- tools box -->
+        <div class="pull-right box-tools">
+          <!--
+          <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
+            <i class="fa fa-times"></i></button>
+          -->
+        </div>
+        <!-- /. tools -->
+    </div>
+    <div class="box-body">
+        <form action="#" method="post">
+          <div class="form-group">
+            <label for="district">Police District</label>
+            <select class="form-control" name="district" placeholder="Select the police district from where to deploy" id="selector-district">
+              <option>-</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="community">Community</label>
+            <select class="form-control" name="community" placeholder="Select the community to deploy to/undeploy from" id="selector-community">
+              <option>-</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="nunits">Number of Units to Deploy/Undeploy</label>
+            <input type="text" class="form-control" name="nunits" placeholder="0" id="input-units">
+        </div>
+    </form>
+  </div>
+  <div class="box-footer clearfix">
+    <button type="button" class="pull-right btn btn-default" id="btn-save">Save Deployment Plan
+      <i class="fa fa-arrow-circle-right"></i></button>
+    <button type="button" class="pull-right btn btn-default" id="btn-optimize">Run Optimization
+      <i class="fa fa-arrow-circle-right"></i></button>
+    <button type="button" class="pull-right btn btn-default" id="btn-undeployPatrols">Un-deploy Patrols
+      <i class="fa fa-arrow-circle-right"></i></button>
+    <button type="button" class="pull-right btn btn-default" id="btn-deployPatrols">Deploy Patrols
+      <i class="fa fa-arrow-circle-right"></i></button>
+  </div>
+  <div class="box-footer no-border">
+      <div class="row">
+        <div class="col-xs-12 text-center" style="border-right: 1px solid #f4f4f4">
+          <div class="clearfix" style="color: black">
+            <span class="pull-left" id="status-message"> </span>
+            <small class="pull-right" id="status-pct">0%</small>
+        </div>
+        <div class="progress xs">
+            <div class="progress-bar progress-bar-green" style="width: 0%;" id="status-bar"></div>
+        </div>
+      </div>
+      <!-- ./col -->
+  </div>
+  <!-- /.row -->
+  </div>
+  </div>
 
 </section>
 <!-- right col -->

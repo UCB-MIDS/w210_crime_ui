@@ -9,65 +9,303 @@ $(function () {
 
   "use strict";
 
-  function update_graphs(communityArea,weekDay,weekYear,hourDay)
+  function update_dashboard(communities, districts, mapCoverage, mapCrimes, mapDeploys, distanceCost, fairness, totalCoverage)
   {
-    var params=undefined;
-    if (typeof communityArea !== 'undefined') {
-      params={communityarea: JSON.stringify(communityArea), weekday: JSON.stringify(weekDay), weekyear: JSON.stringify(weekYear), hourday: JSON.stringify(hourDay)};
-    }
-    else {
-      params={weekday: JSON.stringify(weekDay), weekyear: JSON.stringify(weekYear), hourday: JSON.stringify(hourDay)};
-    }
-    var results=undefined;
-    $('#status-message').html("Predicting crimes...");
-    $('#status-pct').html("15%");
-    $('#status-bar').width("15%");
+    $('#status-message').html("Updating map...");
+    $('#status-pct').html("20%");
+    $('#status-bar').width("20%");
+
+    draw_map(mapCoverage,mapCrimes,mapDeploys)
+
+    $('#status-message').html("Updating KPIs...");
+    $('#status-pct').html("60%");
+    $('#status-bar').width("60%");
+
+    $('#kpi-coverage').html(Math.round(totalCoverage*100)/100+"<sup style=\"font-size: 20px\">%</sup>");
+    $('#kpi-fairness').html(Math.round(fairness*1000)/1000+"<sup style=\"font-size: 20px\">%</sup>");
+    $('#kpi-distance').html(Math.round(distanceCost*10)/10);
+
+    $('#status-message').html("Updating dropdowns...");
+    $('#status-pct').html("80%");
+    $('#status-bar').width("80%");
+
+    $("#selector-district").empty();
+    $("#selector-community").empty();
+
+    var option = undefined;
+    var district = undefined;
+    var community = undefined;
+
+    Object.keys(districts).forEach(function(item) {
+      district = districts[item];
+      option = $('<option></option>').attr("value", district.id).text(district.name + ' ('+district.available_patrols+' available units of '+district.total_patrols+' total units)');
+      $("#selector-district").append(option);
+    });
+    Object.keys(communities).forEach(function(item) {
+      community = communities[item];
+      option = $('<option></option>').attr("value", community.id).text(community.name + ' ('+mapDeploys[community.code]+' units deployed, '+mapCrimes[community.code]+' crimes predicted and '+Math.round(mapCoverage[community.code]*100)/100+'% of crimes currently covered)');
+      $("#selector-community").append(option);
+    });
+
+    $('#status-message').html("All done.");
+    $('#status-pct').html("100%");
+    $('#status-bar').width("100%");
+  }
+
+  function select_plan(change_plan,date,period)
+  {
+    var loaded = false;
+    var communities = undefined;
+    var districts = undefined;
+    var mapCoverage = undefined;
+    var mapCrimes = undefined;
+    var mapDeploys = undefined;
+    var distanceCost = undefined;
+    var fairness = undefined;
+    var totalCoverage = undefined;
+    $('#status-message').html("Getting current deployment plan...");
+    $('#status-pct').html("0%");
+    $('#status-bar').width("0%");
     $.ajax({
-            url: "http://localhost:60000/predict",
-            data: params,
-            type: "POST",
+            url: "http://localhost:61000/getLoadedDeploymentPlan",
+            type: "GET",
             success: function (data) {
 
-              $('#status-message').html("Plotting predictions on map...");
-              $('#status-pct').html("50%");
-              $('#status-bar').width("50%");
-
-              var mapData = {};
-              var crimeTypeData = {};
-              var preds = data.result;
-
-              preds.forEach(function(item) {
-                  if (typeof mapData[item["communityArea"]] == 'undefined') {
-                    mapData[item["communityArea"]] = 0
-                  }
-                  if (typeof crimeTypeData[item["primaryType"]] == 'undefined') {
-                    crimeTypeData[item["primaryType"]] = 0
-                  }
-                  mapData[item["communityArea"]] = mapData[item["communityArea"]] + item["pred"]
-                  crimeTypeData[item["primaryType"]] = crimeTypeData[item["primaryType"]] + item["pred"]
-              })
-
-              var mapObject = $('#world-map').vectorMap('get', 'mapObject');
-              if (typeof mapObject != 'undefined') {
-                mapObject.remove();
+              if (data.result == "failed") {
+                loaded = false;
               }
-              //mapObject.series.regions[0].setValues(mapData);
-              draw_map(mapData);
+              else {
+                loaded = true;
+                communities = data.communities;
+                districts = data.districts;
+                mapCoverage = data.mapCoverage;
+                mapCrimes = data.mapCrimes;
+                mapDeploys = data.mapDeploys;
+                distanceCost = data.distanceCost;
+                fairness = data.fairness;
+                totalCoverage = data.totalCoverage;
+              }
 
-              $('#status-message').html("Calculating KPIs...");
-              $('#status-pct').html("80%");
-              $('#status-bar').width("80%");
+              if (loaded == false) {
+                if (change_plan == false) {
+                  $('#status-message').html("No loaded deployment plan. Loading for current period...");
+                  var date = moment().format("MM-DD-YYYY");
+                  var period = undefined;
+                  if (moment().hour() >= 0 && moment().hour() <= 6) {
+                    period = 'DAWN';
+                  } else if (moment().hour() > 6 && moment().hour() <= 11) {
+                    period = 'MORNING';
+                  } else if (moment().hour() > 11 && moment().hour() <= 17) {
+                    period = 'AFTERNOON';
+                  } else {
+                    period = 'EVENING';
+                  }
+                } else {
+                  $('#status-message').html("Loading deployment plan for selected period...");
+                }
+                var params={date: JSON.stringify(date), period: JSON.stringify(period)};
+                $('#status-pct').html("10%");
+                $('#status-bar').width("10%");
+                $.ajax({
+                        url: "http://localhost:61000/loadDeploymentPlan",
+                        data: params,
+                        type: "GET",
+                        success: function (data) {
 
-              $('#status-message').html("Done!");
+                          loaded = true;
+                          communities = data.communities;
+                          districts = data.districts;
+                          mapCoverage = data.mapCoverage;
+                          mapCrimes = data.mapCrimes;
+                          mapDeploys = data.mapDeploys;
+                          distanceCost = data.distanceCost;
+                          fairness = data.fairness;
+                          totalCoverage = data.totalCoverage;
+
+                          $('#status-message').html("Deployment plan loaded!");
+                          $('#status-pct').html("20%");
+                          $('#status-bar').width("20%");
+
+                          update_dashboard(communities, districts, mapCoverage, mapCrimes, mapDeploys, distanceCost, fairness, totalCoverage);
+
+                        },
+                        error: function (x, y, z) {
+                            $('#status-message').html("Failed to contact Planning service");
+                            $('#status-pct').html("0%");
+                            $('#status-bar').width("0%");
+                            console.log(x);
+                        }
+                    });
+              } else {
+                $('#status-message').html("Deployment plan loaded!");
+                $('#status-pct').html("20%");
+                $('#status-bar').width("20%");
+
+                update_dashboard(communities, districts, mapCoverage, mapCrimes, mapDeploys, distanceCost, fairness, totalCoverage);
+              }
+
+            },
+            error: function (x, y, z) {
+                $('#status-message').html("Failed to contact Planning service");
+                $('#status-pct').html("0%");
+                $('#status-bar').width("0%");
+                console.log(x);
+            }
+        });
+
+  }
+
+  function change_units(operation,district,community,units)
+  {
+    var communities = undefined;
+    var districts = undefined;
+    var mapCoverage = undefined;
+    var mapCrimes = undefined;
+    var mapDeploys = undefined;
+    var distanceCost = undefined;
+    var fairness = undefined;
+    var totalCoverage = undefined;
+    var url = undefined;
+
+    if (operation == 'deploy') {
+      $('#status-message').html("Deploying units from selected district to selected community...");
+      $('#status-pct').html("0%");
+      $('#status-bar').width("0%");
+      url = "http://localhost:61000/deployPatrols"
+    } else {
+      $('#status-message').html("Un-deploying units from selected community back to selected district...");
+      $('#status-pct').html("0%");
+      $('#status-bar').width("0%");
+      url = "http://localhost:61000/undeployPatrols"
+    }
+    var params={district: JSON.stringify(district), community: JSON.stringify(community), patrols: JSON.stringify(units)};
+    $.ajax({
+            url: url,
+            data: params,
+            type: "GET",
+            success: function (data) {
+
+              if (data.result == "failed") {
+                $('#status-message').html("Error: "+data.message);
+                $('#status-pct').html("100%");
+                $('#status-bar').width("100%");
+                return;
+              }
+
+              communities = data.communities;
+              districts = data.districts;
+              mapCoverage = data.mapCoverage;
+              mapCrimes = data.mapCrimes;
+              mapDeploys = data.mapDeploys;
+              distanceCost = data.distanceCost;
+              fairness = data.fairness;
+              totalCoverage = data.totalCoverage;
+
+              update_dashboard(communities, districts, mapCoverage, mapCrimes, mapDeploys, distanceCost, fairness, totalCoverage);
+
+            },
+            error: function (x, y, z) {
+                $('#status-message').html("Failed to contact Planning service");
+                $('#status-pct').html("0%");
+                $('#status-bar').width("0%");
+                console.log(x);
+            }
+        });
+  }
+
+  function run_optimization(useFairness)
+  {
+    var communities = undefined;
+    var districts = undefined;
+    var mapCoverage = undefined;
+    var mapCrimes = undefined;
+    var mapDeploys = undefined;
+    var distanceCost = undefined;
+    var fairness = undefined;
+    var totalCoverage = undefined;
+    var solveStatus = undefined;
+
+    $('#status-message').html("Executing optimization model... Please wait.");
+    $('#status-pct').html("10%");
+    $('#status-bar').width("10%");
+
+    var fairness = undefined;
+    if (useFairness) {
+      fairness = 'yes';
+    } else {
+      fairness = 'no';
+    }
+    var params={useFairness: JSON.stringify(fairness)};
+    $.ajax({
+            url: "http://localhost:61000/runOptimization",
+            data: params,
+            type: "GET",
+            success: function (data) {
+
+              if (data.result == "failed") {
+                $('#status-message').html("Error: "+data.message);
+                $('#status-pct').html("100%");
+                $('#status-bar').width("100%");
+                return;
+              }
+
+              communities = data.communities;
+              districts = data.districts;
+              mapCoverage = data.mapCoverage;
+              mapCrimes = data.mapCrimes;
+              mapDeploys = data.mapDeploys;
+              distanceCost = data.distanceCost;
+              fairness = data.fairness;
+              totalCoverage = data.totalCoverage;
+              solveStatus = data.solve_status;
+
+              $('#status-message').html("Optimization finished. Type of solution found: "+solveStatus+". Updating dashboard...");
+              $('#status-pct').html("20%");
+              $('#status-bar').width("20%");
+
+              update_dashboard(communities, districts, mapCoverage, mapCrimes, mapDeploys, distanceCost, fairness, totalCoverage);
+
+              $('#status-message').html("Optimization finished. Type of solution found: "+solveStatus);
               $('#status-pct').html("100%");
               $('#status-bar').width("100%");
 
             },
             error: function (x, y, z) {
-               $('#status-message').html("Failed to run crime prediction!");
-               $('#status-pct').html("0%");
-               $('#status-bar').width("0%");
-               console.log(x);
+                $('#status-message').html("Failed to contact Planning service");
+                $('#status-pct').html("0%");
+                $('#status-bar').width("0%");
+                console.log(x);
+            }
+        });
+  }
+
+  function save_deployment()
+  {
+    $('#status-message').html("Persisting current deployment plan to database...");
+    $('#status-pct').html("50%");
+    $('#status-bar').width("50%");
+    $.ajax({
+            url: "http://localhost:61000/saveDeploymentPlan",
+            type: "GET",
+            success: function (data) {
+
+              if (data.result == "failed") {
+                $('#status-message').html("Error: "+data.message);
+                $('#status-pct').html("100%");
+                $('#status-bar').width("100%");
+                return;
+              }
+
+              $('#status-message').html(data.message);
+              $('#status-pct').html("100%");
+              $('#status-bar').width("100%");
+
+            },
+            error: function (x, y, z) {
+                $('#status-message').html("Failed to contact Planning service");
+                $('#status-pct').html("0%");
+                $('#status-bar').width("0%");
+                console.log(x);
             }
         });
   }
@@ -111,33 +349,33 @@ $(function () {
     timePicker24Hour: true
   }, function (start,end) {
     /* console.log("You chose: " + start.format('MMMM Do YYYY, HH:mm:ss') + " - " + end.format('MMMM Do YYYY, HH:mm:ss')); */
-    var weekDay = start.day();
-    var weekYear = start.week();
-    var hourDay = undefined;
+    var date = start.format("MM-DD-YYYY");
+    var period = undefined;
     if (start.hour() >= 0 && start.hour() <= 6) {
-      hourDay = 'DAWN';
+      period = 'DAWN';
     } else if (start.hour() > 6 && start.hour() <= 11) {
-      hourDay = 'MORNING';
+      period = 'MORNING';
     } else if (start.hour() > 11 && start.hour() <= 17) {
-      hourDay = 'AFTERNOON';
+      period = 'AFTERNOON';
     } else {
-      hourDay = 'EVENING';
+      period = 'EVENING';
     }
     /*
     console.log("Day of the Week: " + weekDay);
     console.log("Week of Year: " + weekYear);
     console.log("Time of the Day: " + hourDay);
     */
-    update_graphs(undefined, [weekDay], [weekYear], [hourDay]);
+    select_plan(true, date, period);
   });
 
   /* jQueryKnob */
   $(".knob").knob();
 
-  function draw_map(data) {
+  function draw_map(coverageData,crimeData,deployData) {
     //jvectormap data
-    var crimeData = data;
+    var mapData = coverageData;
     //World map by jvectormap
+    $('#world-map').empty();
     $('#world-map').vectorMap({
       map: 'us-il-chicago_mill',
       backgroundColor: "transparent",
@@ -152,18 +390,18 @@ $(function () {
       },
       series: {
         regions: [{
-          values: crimeData,
-          scale: ["#FFCCCC", "#FF0000"],
+          values: mapData,
+          scale: ["#FF0441", "#FF867A", "#FFD04D", "#CCFF65", "#7CFF6C"],
           normalizeFunction: 'polynomial'
         }]
       },
       onRegionLabelShow: function (e, el, code) {
         if (typeof crimeData[code] != "undefined")
-          el.html(el.html() + ': ' + crimeData[code] + ' total crimes');
+          el.html(el.html() + ': <br>' + crimeData[code] + ' total crimes<br>' + deployData[code] + ' units deployed<br>' + Math.round(coverageData[code]*10)/10 + '% of crimes covered');
       }
     });
   }
-  draw_map({})
+  draw_map({},{},{});
 
   //The Calender
   $("#calendar").datepicker();
@@ -180,6 +418,38 @@ $(function () {
   } else {
     hourDay = 'EVENING';
   }
-  update_graphs(undefined, [weekDay], [weekYear], [hourDay])
+
+  $(document).ready(function() {
+    $("#btn-deployPatrols").click(function(){
+        var district = $("#selector-district").children(":selected").attr("value");
+        var community = $("#selector-community").children(":selected").attr("value");
+        var patrols = $("#input-units").val();
+        if (!isNaN(parseFloat(patrols)) && isFinite(patrols)) {
+          change_units('deploy',district,community,parseInt(patrols,10));
+        } else {
+          alert("Invalid value for number of units to be deployed.")
+        }
+    });
+    $("#btn-undeployPatrols").click(function(){
+        var district = $("#selector-district").children(":selected").attr("value");
+        var community = $("#selector-community").children(":selected").attr("value");
+        var patrols = $("#input-units").val();
+        if (!isNaN(parseFloat(patrols)) && isFinite(patrols)) {
+          change_units('undeploy',district,community,parseInt(patrols,10));
+        } else {
+          alert("Invalid value for number of units to be un-deployed.")
+        }
+    });
+    $("#btn-save").click(function(){
+        save_deployment();
+    });
+    $("#btn-optimize").click(function(){
+        var useFairness = $("#cb-opt-fairness")[0].checked;
+        run_optimization(useFairness);
+    });
+  });
+
+  //update_graphs(undefined, [weekDay], [weekYear], [hourDay])
+  select_plan(false,undefined,undefined);
 
 });

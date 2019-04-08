@@ -182,6 +182,7 @@
         {% block main_menu %}
         {{ layout.menu() }}
         {% endblock %}
+        <!--
         <li>
           <a href="#">
             <i class="fa fa-envelope"></i> <span>Mailbox</span>
@@ -225,6 +226,7 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
           </ul>
         </li>
+        -->
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -264,19 +266,21 @@
       <!-- Settings tab content -->
       <div class="tab-pane" id="control-sidebar-settings-tab">
         <form method="post">
-          <h3 class="control-sidebar-heading">General Settings</h3>
+          <h3 class="control-sidebar-heading">Optimization Settings</h3>
 
           <div class="form-group">
             <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
+              Optimize deployment fairness
+              <input type="checkbox" class="pull-right" checked id="cb-opt-fairness">
             </label>
 
             <p>
-              Some information about this general settings option
+              This option sets the deployment optimization model to also account for fairness when optimizing unit deployment.
             </p>
           </div>
           <!-- /.form-group -->
+
+          <h3 class="control-sidebar-heading">General Settings</h3>
 
           <div class="form-group">
             <label class="control-sidebar-subheading">

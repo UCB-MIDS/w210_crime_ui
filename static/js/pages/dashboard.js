@@ -23,45 +23,36 @@ $(function () {
     $('#status-pct').html("15%");
     $('#status-bar').width("15%");
     $.ajax({
-            url: "http://localhost:60000/predict",
+            url: "http://localhost:60000/predictionAndKPIs",
             data: params,
             type: "POST",
             success: function (data) {
 
+              if (data.result == 'failed') {
+                $('#status-message').html("Error running crime predictions.");
+                $('#status-pct').html("0%");
+                $('#status-bar').width("0%");
+              }
+
               $('#status-message').html("Plotting predictions on map...");
               $('#status-pct').html("30%");
               $('#status-bar').width("30%");
-
-              var mapData = {};
-              var crimeTypeData = {};
-              var preds = data.result;
-
-              preds.forEach(function(item) {
-                  if (typeof mapData[item["communityArea"]] == 'undefined') {
-                    mapData[item["communityArea"]] = 0
-                  }
-                  if (typeof crimeTypeData[item["primaryType"]] == 'undefined') {
-                    crimeTypeData[item["primaryType"]] = 0
-                  }
-                  mapData[item["communityArea"]] = mapData[item["communityArea"]] + item["pred"]
-                  crimeTypeData[item["primaryType"]] = crimeTypeData[item["primaryType"]] + item["pred"]
-              })
 
               var mapObject = $('#world-map').vectorMap('get', 'mapObject');
               if (typeof mapObject != 'undefined') {
                 mapObject.remove();
               }
               //mapObject.series.regions[0].setValues(mapData);
-              draw_map(mapData);
+              draw_map(data.crimeByCommunity);
 
               $('#status-message').html("Plotting charts...");
               $('#status-pct').html("60%");
               $('#status-bar').width("60%");
 
               var chartData = []
-              Object.keys(crimeTypeData).forEach(function(key) {
-                chartData.push({'label': key, 'value': crimeTypeData[key]});
-              })
+              Object.keys(data.crimeByType).forEach(function(key) {
+                chartData.push({'label': key, 'value': data.crimeByType[key]});
+              });
               area.setData(chartData);
               donut.setData(chartData);
               area.redraw();
@@ -70,6 +61,14 @@ $(function () {
               $('#status-message').html("Calculating KPIs...");
               $('#status-pct').html("80%");
               $('#status-bar').width("80%");
+
+              var kpi_pred_crimes = 0;
+              Object.keys(data.crimeByCommunity).forEach(function(key) {
+                kpi_pred_crimes = kpi_pred_crimes + data.crimeByCommunity[key];
+              });
+
+              $('#kpi-pred-crimes').html(kpi_pred_crimes);
+              $('#kpi-pred-fairness').html(Math.round(data.fairness*100)/100+"<sup style=\"font-size: 20px\">%</sup>");
 
               $('#status-message').html("Done!");
               $('#status-pct').html("100%");
