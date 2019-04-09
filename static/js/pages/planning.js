@@ -66,6 +66,8 @@ $(function () {
     $('#status-message').html("Getting current deployment plan...");
     $('#status-pct').html("0%");
     $('#status-bar').width("0%");
+    var new_date = date;
+    var new_period = period;
     $.ajax({
             url: "http://localhost:61000/getLoadedDeploymentPlan",
             type: "GET",
@@ -86,7 +88,7 @@ $(function () {
                 totalCoverage = data.totalCoverage;
               }
 
-              if (loaded == false) {
+              if ((loaded == false) || (change_plan == true)) {
                 if (change_plan == false) {
                   $('#status-message').html("No loaded deployment plan. Loading for current period...");
                   var date = moment().format("MM-DD-YYYY");
@@ -102,6 +104,8 @@ $(function () {
                   }
                 } else {
                   $('#status-message').html("Loading deployment plan for selected period...");
+                  var date = new_date;
+                  var period = new_period;
                 }
                 var params={date: JSON.stringify(date), period: JSON.stringify(period)};
                 $('#status-pct').html("10%");
