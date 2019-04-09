@@ -69,7 +69,7 @@ $(function () {
     var new_date = date;
     var new_period = period;
     $.ajax({
-            url: "http://localhost:61000/getLoadedDeploymentPlan",
+            url: "http://w210-crime-optimization.us-east-1.elasticbeanstalk.com/getLoadedDeploymentPlan",
             type: "GET",
             success: function (data) {
 
@@ -111,7 +111,7 @@ $(function () {
                 $('#status-pct').html("10%");
                 $('#status-bar').width("10%");
                 $.ajax({
-                        url: "http://localhost:61000/loadDeploymentPlan",
+                        url: "http://w210-crime-optimization.us-east-1.elasticbeanstalk.com/loadDeploymentPlan",
                         data: params,
                         type: "GET",
                         success: function (data) {
@@ -175,12 +175,12 @@ $(function () {
       $('#status-message').html("Deploying units from selected district to selected community...");
       $('#status-pct').html("0%");
       $('#status-bar').width("0%");
-      url = "http://localhost:61000/deployPatrols"
+      url = "http://w210-crime-optimization.us-east-1.elasticbeanstalk.com/deployPatrols"
     } else {
       $('#status-message').html("Un-deploying units from selected community back to selected district...");
       $('#status-pct').html("0%");
       $('#status-bar').width("0%");
-      url = "http://localhost:61000/undeployPatrols"
+      url = "http://w210-crime-optimization.us-east-1.elasticbeanstalk.com/undeployPatrols"
     }
     var params={district: JSON.stringify(district), community: JSON.stringify(community), patrols: JSON.stringify(units)};
     $.ajax({
@@ -241,7 +241,7 @@ $(function () {
     }
     var params={useFairness: JSON.stringify(fairness)};
     $.ajax({
-            url: "http://localhost:61000/runOptimization",
+            url: "http://w210-crime-optimization.us-east-1.elasticbeanstalk.com/runOptimization",
             data: params,
             type: "GET",
             success: function (data) {
@@ -289,7 +289,7 @@ $(function () {
     $('#status-pct').html("50%");
     $('#status-bar').width("50%");
     $.ajax({
-            url: "http://localhost:61000/saveDeploymentPlan",
+            url: "http://w210-crime-optimization.us-east-1.elasticbeanstalk.com/saveDeploymentPlan",
             type: "GET",
             success: function (data) {
 

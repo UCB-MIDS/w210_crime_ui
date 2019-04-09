@@ -23,7 +23,7 @@ $(function () {
     $('#status-pct').html("15%");
     $('#status-bar').width("15%");
     $.ajax({
-            url: "http://localhost:60000/predictionAndKPIs",
+            url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/predictionAndKPIs",
             data: params,
             type: "POST",
             success: function (data) {
