@@ -1,5 +1,6 @@
 #!venv/bin/python
 import os
+import s3fs
 from flask import Flask, url_for, redirect, render_template, request, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore, \
@@ -9,6 +10,16 @@ import flask_admin
 from flask_admin.contrib import sqla
 from flask_admin import helpers as admin_helpers
 from flask_admin import BaseView, expose
+
+### Load Flask configuration file
+s3fs.S3FileSystem.read_timeout = 5184000  # one day
+s3fs.S3FileSystem.connect_timeout = 5184000  # one day
+s3 = s3fs.S3FileSystem(anon=False)
+config_file = 'w210policedata/config/config.py'
+try:
+    s3.get(config_file,'config.py')
+except:
+    print('Failed to load application configuration file!')
 
 # Create Flask application
 application = Flask(__name__)
