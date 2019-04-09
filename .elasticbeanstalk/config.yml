@@ -1,0 +1,22 @@
+branch-defaults:
+  master:
+    environment: W210CrimeUi-env
+environment-defaults:
+  W210CrimeUI-env:
+    branch: null
+    repository: null
+  W210CrimeUi-env:
+    branch: null
+    repository: null
+global:
+  application_name: w210_crime_ui
+  default_ec2_keyname: w210crime
+  default_platform: python-3.6
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  sc: git
+  workspace_type: Application
