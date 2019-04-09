@@ -6,7 +6,6 @@ certifi==2019.3.9
 chardet==3.0.4
 Click==7.0
 docutils==0.14
-enum34==1.1.6
 Flask==1.0.2
 Flask-Admin==1.5.3
 Flask-BabelEx==0.9.3
