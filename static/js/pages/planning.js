@@ -217,7 +217,7 @@ $(function () {
         });
   }
 
-  function run_optimization(useFairness)
+  function run_optimization(useFairness,minOnePatrolPerComm)
   {
     var communities = undefined;
     var districts = undefined;
@@ -234,12 +234,18 @@ $(function () {
     $('#status-bar').width("10%");
 
     var fairness = undefined;
+    var minpatrols = undefined;
     if (useFairness) {
       fairness = 'yes';
     } else {
       fairness = 'no';
     }
-    var params={useFairness: JSON.stringify(fairness)};
+    if (minOnePatrolPerComm) {
+      minpatrols = 'yes';
+    } else {
+      minpatrols = 'no';
+    }
+    var params={useFairness: JSON.stringify(fairness), minOnePatrolPerComm: JSON.stringify(minpatrols)};
     $.ajax({
             url: "http://w210-crime-optimization.us-east-1.elasticbeanstalk.com/runOptimization",
             data: params,
@@ -449,7 +455,8 @@ $(function () {
     });
     $("#btn-optimize").click(function(){
         var useFairness = $("#cb-opt-fairness")[0].checked;
-        run_optimization(useFairness);
+        var minOnePatrolPerComm = $("#cb-opt-minpatrols")[0].checked;
+        run_optimization(useFairness,minOnePatrolPerComm);
     });
   });
 
