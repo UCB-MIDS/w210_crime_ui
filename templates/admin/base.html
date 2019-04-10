@@ -275,7 +275,19 @@
             </label>
 
             <p>
-              This option sets the deployment optimization model to also account for fairness when optimizing unit deployment.
+              Sets the deployment optimization model to also account for fairness when optimizing unit deployment.
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Minimum one unit per community
+              <input type="checkbox" class="pull-right" checked id="cb-opt-minpatrols">
+            </label>
+
+            <p>
+              Forces the optimization model to deploy at least one unit per community. WARNING: This may make the problem infeasible to solve if there aren't enough resources available.
             </p>
           </div>
           <!-- /.form-group -->
