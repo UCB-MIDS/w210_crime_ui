@@ -311,6 +311,11 @@ class PatrolDeploymentView(BaseView):
     def index(self):
         return self.render('admin/planning.html')
 
+class MLSettingsView(BaseView):
+    @expose('/')
+    def index(self):
+        return self.render('admin/mlsettings.html')
+
 # Flask views
 @application.route('/')
 def index():
@@ -330,7 +335,8 @@ admin.add_view(UserView(User, db.session, menu_icon_type='fa', menu_icon_value='
 admin.add_view(CommunityView(Community, db.session, menu_icon_type='fa', menu_icon_value='fa-map-marker', name="Communities"))
 admin.add_view(PoliceDistrictView(PoliceDistrict, db.session, menu_icon_type='fa', menu_icon_value='fa-bank', name="Police Districts"))
 admin.add_view(DistanceView(Distance, db.session, menu_icon_type='fa', menu_icon_value='fa-map', name="Distances"))
-admin.add_view(PatrolDeploymentView(name="Patrol Deployments", endpoint='planning', menu_icon_type='fa', menu_icon_value='fa-location-arrow',))
+admin.add_view(PatrolDeploymentView(name="Patrol Deployments", endpoint='planning', menu_icon_type='fa', menu_icon_value='fa-location-arrow'))
+admin.add_view(MLSettingsView(name="Machine Learning Settings", endpoint='mlsettings', menu_icon_type='fa', menu_icon_value='fa-connectdevelop'))
 
 # define a context processor for merging flask-admin's template context into the
 # flask-security views.

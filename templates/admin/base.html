@@ -9,8 +9,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Flask-Admin dashboard login template">
-  <meta name="author" content="Jonathan Ars">
+  <meta name="description" content="OptiPol - Police Prediction and Deployment Planning System">
+  <meta name="author" content="Felipe Campos, Himal Suthar, James Nguyen, Andrew Pouchepanadin">
   {% endblock head_meta %}
 
   {% block head_css %}
@@ -81,48 +81,6 @@
 
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
-            <!-- Notifications: style can be found in dropdown.less -->
-            <li class="dropdown notifications-menu">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-bell-o"></i>
-                <span class="label label-warning">10</span>
-              </a>
-              <ul class="dropdown-menu">
-                <li class="header">You have 10 notifications</li>
-                <li>
-                  <!-- inner menu: contains the actual data -->
-                  <ul class="menu">
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                        page and may cause design problems
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-users text-red"></i> 5 new members joined
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-user text-red"></i> You changed your username
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="footer"><a href="#">View all</a></li>
-              </ul>
-            </li>
 
             <!-- Control Sidebar Toggle Button -->
             <li>
@@ -292,112 +250,8 @@
           </div>
           <!-- /.form-group -->
 
-          <h3 class="control-sidebar-heading">General Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Allow mail redirect
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Other sets of options are available
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Expose author name in posts
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Allow the user to show his name in blog posts
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Show me as online
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Turn off notifications
-              <input type="checkbox" class="pull-right">
-            </label>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Delete chat history
-              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-            </label>
-          </div>
-          <!-- /.form-group -->
         </form>
-        <h3 class="control-sidebar-heading">Recent Activity</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                <p>Will be 23 on April 24th</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-
-                <p>nora@example.com</p>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-        <h3 class="control-sidebar-heading">Tasks Progress</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Custom Template Design
-                <span class="label label-danger pull-right">70%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Update Resume
-                <span class="label label-success pull-right">95%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
       </div>
       <!-- /.tab-pane -->
     </div>
@@ -408,10 +262,10 @@
   <div class="control-sidebar-bg"></div>
 
   <footer class="main-footer">
-     <strong>Copyright &copy; 2018 <a href="https://github.com/jonalxh">Jonathan Arias</a></strong> -
+     <strong>Copyright &copy; 2019 Felipe Campos, James Nguyen, Himal Suthar, Andrew Pouchepanadin</strong> -
     <strong>Admin LTE Template <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
     <div class="pull-right hidden-xs">
-      <b>Version</b> 0.1
+      <b>Version</b> 0.2
     </div>
   </footer>
   {% endif %}
@@ -470,6 +324,9 @@
 {% endif %}
 {% if admin_view.name=="Patrol Deployments" %}
   <script src="{{url_for('static',filename='js/pages/planning.js')}}"></script>
+{% endif %}
+{% if admin_view.name=="Machine Learning Settings" %}
+  <script src="{{url_for('static',filename='js/pages/mlsettings.js')}}"></script>
 {% endif %}
 
 {% endblock tail_js%}

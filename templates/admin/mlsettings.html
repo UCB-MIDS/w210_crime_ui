@@ -1,0 +1,227 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+{{ super() }}
+
+{% if current_user.is_authenticated %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+      Machine Learning
+      <small>Configuration Panel</small>
+  </h1>
+  <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">ML Settings</li>
+  </ol>
+</section>
+
+<section class="content">
+<!-- Main row -->
+<div class="row">
+    <!-- Left col -->
+    <section class="col-lg-5 connectedSortable">
+      <!-- Map box -->
+      <div class="box box-info">
+          <div class="box-header">
+            <i class="fa fa-gears"></i>
+
+            <h3 class="box-title">Train New Model</h3>
+            <!-- tools box -->
+            <div class="pull-right box-tools">
+              <!--
+              <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fa fa-times"></i></button>
+              -->
+            </div>
+            <!-- /. tools -->
+        </div>
+        <div class="box-body">
+            <form action="#" method="post">
+              <div class="form-group">
+                <div class="form-group">
+                    <label for="modelname">New Model Name</label>
+                    <input type="text" class="form-control" name="modelname" placeholder="Input a name for the model" id="input-modelname">
+                </div>
+                <label for="modeltype">Model Type</label>
+                <select class="form-control" name="modeltype" placeholder="Select the type of model to be trained" id="selector-modeltype">
+                  <option value='keras'>Keras</option>
+                  <option value='xgboost'>XGBoost Regressor</option>
+                </select>
+                <label for="cb-features-group">Select model features:</label>
+                <div class="form-group" id="cb-features-group">
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="box-footer clearfix">
+        <button type="button" class="pull-right btn btn-default" id="btn-train">Train Model
+          <i class="fa fa-arrow-circle-right"></i></button>
+        <button type="button" class="pull-right btn btn-default" id="btn-check">Check Model Training
+          <i class="fa fa-arrow-circle-right"></i></button>
+        <button type="button" class="pull-right btn btn-default" id="btn-kill">Kill Training
+          <i class="fa fa-arrow-circle-right"></i></button>
+      </div>
+      <div class="box-footer no-border">
+          <div class="row">
+            <div class="col-xs-12 text-center" style="border-right: 1px solid #f4f4f4">
+              <div class="clearfix" style="color: black">
+                <span class="pull-left" id="trainer-message"> </span>
+                <small class="pull-right" id="trainer-pct">0%</small>
+            </div>
+            <div class="progress xs">
+                <div class="progress-bar progress-bar-green" style="width: 0%;" id="trainer-status-bar"></div>
+            </div>
+          </div>
+          <!-- ./col -->
+      </div>
+      <!-- /.row -->
+      </div>
+      </div>
+    <!-- /.box -->
+
+</section>
+
+<!-- /.Left col -->
+<!-- right col (We are only adding the ID to make the widgets sortable)-->
+<section class="col-lg-7 connectedSortable">
+
+  <div class="box box-info">
+      <div class="box-header">
+        <i class="fa fa-archive"></i>
+
+        <h3 class="box-title">Active Predictive Model Selection</h3>
+        <!-- tools box -->
+        <div class="pull-right box-tools">
+          <!--
+          <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
+            <i class="fa fa-times"></i></button>
+          -->
+        </div>
+        <!-- /. tools -->
+    </div>
+    <div class="box-body">
+        <form action="#" method="post">
+          <div class="form-group">
+            <label for="model">Select a model:</label>
+            <select class="form-control" name="model" placeholder="Select the model you wish to load" id="selector-model">
+              <option>-</option>
+            </select>
+        </div>
+        <div class="form-group">
+          <label for="model-features">Selected Model Features</label>
+          <select multiple class="form-control" id="model-features" size=5 disabled>
+          </select>
+        </div>
+        <div class="form-group">
+          <div class="form-group col-md-4">
+            <label for="model-MAE">Mean Absolute Error</label>
+            <input type="text" class="form-control" id="model-MAE" placeholder="MAE" readonly>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="MSE">Mean Squared Error</label>
+            <input type="text" class="form-control" id="model-MSE" placeholder="MSE" readonly>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="RMSE">Root Mean Squared Error</label>
+            <input type="text" class="form-control" id="model-RMSE" placeholder="RMSE" readonly>
+          </div>
+        </div>
+    </form>
+  </div>
+  <div class="box-footer clearfix">
+    <button type="button" class="pull-right btn btn-default" id="btn-load">Load Selected Model
+      <i class="fa fa-arrow-circle-right"></i></button>
+  </div>
+  <div class="box-footer no-border">
+      <div class="row">
+        <div class="col-xs-12 text-center" style="border-right: 1px solid #f4f4f4">
+          <div class="clearfix" style="color: black">
+            <span class="pull-left" id="load-message"> </span>
+            <small class="pull-right" id="load-pct">0%</small>
+        </div>
+        <div class="progress xs">
+            <div class="progress-bar progress-bar-green" style="width: 0%;" id="load-status-bar"></div>
+        </div>
+      </div>
+      <!-- ./col -->
+  </div>
+  <!-- /.row -->
+  </div>
+  </div>
+
+</section>
+<!-- right col -->
+</div>
+<!-- /.row (main row) -->
+
+<div class="row">
+  <section class="col-lg-12 connectedSortable">
+    <!-- Map box -->
+    <div class="box box-info">
+        <div class="box-header">
+          <i class="fa fa-terminal"></i>
+
+          <h3 class="box-title">Model Training Output</h3>
+          <!-- tools box -->
+          <div class="pull-right box-tools">
+            <!--
+            <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fa fa-times"></i></button>
+            -->
+          </div>
+          <!-- /. tools -->
+      </div>
+      <div class="box-body">
+          <form action="#" method="post">
+            <div class="form-group">
+              <div class="form-group">
+                <label for="ta-stdout">Model Training Output</label>
+                <textarea class="form-control" id="ta-stdout" rows="20" readonly></textarea>
+              </div>
+          </div>
+      </form>
+    </div>
+    </div>
+  <!-- /.box -->
+
+</section>
+</div>
+
+</section>
+<!-- /.content -->
+{% else %}
+
+<center>
+    <section class="content" style="color: white">
+        <div class="col-sm-12">
+            <h1>Flask-Admin example</h1>
+            <p class="lead">
+                Authentication
+            </p>
+            <p>
+                This example shows how you can use Flask-Admin in an admin template, <br> here I used AdminLTE and <a href="https://pythonhosted.org/Flask-Security/index.html" target="_blank">Flask-Security</a> for authentication.
+            </p>
+            {% if not current_user.is_authenticated %}
+            <p>You can register as a regular user, or log in as a superuser with the following credentials: <br><br>
+
+                email: <b>admin</b> <br>
+                password: <b>admin</b> <br>
+                <br>
+                <p>
+                    <a class="btn btn-primary" href="{{ url_for('security.login') }}">Login</a> <a class="btn btn-default" href="{{ url_for('security.register') }}">Register</a>
+                </p>
+                {% endif %}
+                <br>
+                <p>
+                    <a class="btn btn-primary" href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
+                </p>
+            </div>
+        </section>
+    </center>
+
+    <br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br>
+ {% endif %}
+
+  {% endblock body %}
