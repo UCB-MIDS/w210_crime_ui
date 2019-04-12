@@ -305,6 +305,9 @@ $(function () {
     $("#btn-check").click(function(){
         getTrainingStatus();
     });
+    $("#btn-refresh").click(function(){
+        getAvailableModels();
+    });
     $("#btn-load").click(function(){
       var modelname = $("#selector-model").children(":selected").attr("value");
       loadModel(modelname);
