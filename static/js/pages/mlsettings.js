@@ -9,7 +9,9 @@ $(function () {
 
   "use strict";
 
-  function getAvailableModels(models)
+  var models = [];
+
+  function getAvailableModels()
   {
     $('#load-message').html("Getting available models from Machine Learning Service...");
     $('#load-pct').html("50%");
@@ -277,8 +279,7 @@ $(function () {
   //bootstrap WYSIHTML5 - text editor
   $(".textarea").wysihtml5();
 
-  var models = [];
-  getAvailableModels(models);
+  getAvailableModels();
   getAvailableFeatures();
 
   $(document).ready(function() {
