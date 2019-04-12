@@ -98,6 +98,9 @@ class MyModelView(sqla.ModelView):
     can_export = True
     can_view_details = True
     details_modal = True
+    can_create = False
+    can_edit = False
+    can_delete = False
 
 class UserView(MyModelView):
     column_editable_list = ['email', 'first_name', 'last_name']
@@ -106,6 +109,9 @@ class UserView(MyModelView):
     # form_excluded_columns = column_exclude_list
     column_details_exclude_list = column_exclude_list
     column_filters = column_editable_list
+    can_create = False
+    can_edit = False
+    can_delete = False
 
 class CustomView(BaseView):
     @expose('/')
@@ -238,7 +244,7 @@ def ethnicity_formatter(view, context, model, name):
     return ethnicity[db_value]
 
 class CommunityView(MyModelView):
-    column_editable_list = ['code', 'name', 'ethnicity']
+    column_editable_list = []
     column_searchable_list = column_editable_list
     column_filters = column_editable_list
     column_labels = dict(code='Community Code', name='Community Name', ethnicity='Ethnicity Majority')
@@ -249,6 +255,9 @@ class CommunityView(MyModelView):
                                     (3, 'Black')
                                 ]}
     column_formatters = {'ethnicity': ethnicity_formatter}
+    can_create = False
+    can_edit = False
+    can_delete = False
 
 class PoliceDistrict(db.Model):
     __tablename__ = 'policedistrict'
@@ -265,11 +274,14 @@ class PoliceDistrict(db.Model):
 
 class PoliceDistrictView(MyModelView):
     column_list = ['name', 'address', 'zipcode', 'community_rel', 'patrols']
-    column_editable_list = ['name', 'address', 'zipcode', 'community', 'patrols']
+    column_editable_list = ['patrols']
     column_searchable_list = column_editable_list
     column_filters = column_editable_list
     column_labels = dict(name='District Name', address='Address', zipcode='ZIP Code', community_rel='Community', patrols='Number of Available Patrols')
     form_choices = communities
+    can_create = False
+    can_edit = True
+    can_delete = False
 
 class Distance(db.Model):
     __tablename__ = 'distances'
@@ -286,11 +298,14 @@ class Distance(db.Model):
 
 class DistanceView(MyModelView):
     column_list = ['name', 'district_rel', 'community_rel', 'distance']
-    column_editable_list = ['name', 'district', 'community', 'distance']
+    column_editable_list = []
     column_searchable_list = column_editable_list
     column_filters = column_editable_list
     column_labels = dict(name='Route', district_rel='District', community_rel='Community', distance='Distance Between District and Community')
     form_choices = communities
+    can_create = False
+    can_edit = False
+    can_delete = False
 
 class PatrolDeployment(db.Model):
     __tablename__ = 'patroldeployment'
