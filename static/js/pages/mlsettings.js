@@ -15,8 +15,8 @@ $(function () {
     $('#load-pct').html("50%");
     $('#load-status-bar').width("50%");
     $.ajax({
-            //url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/getAvailableModels",
-            url: "http://localhost:60000/getAvailableModels",
+            url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/getAvailableModels",
+            //url: "http://localhost:60000/getAvailableModels",
             type: "GET",
             success: function (data) {
 
@@ -70,8 +70,8 @@ $(function () {
     $('#trainer-pct').html("50%");
     $('#trainer-status-bar').width("50%");
     $.ajax({
-            //url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/getAvailableFeatures",
-            url: "http://localhost:60000/getAvailableFeatures",
+            url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/getAvailableFeatures",
+            //url: "http://localhost:60000/getAvailableFeatures",
             type: "GET",
             success: function (data) {
 
@@ -126,8 +126,8 @@ $(function () {
     $('#trainer-pct').html("50%");
     $('#trainer-status-bar').width("50%");
     $.ajax({
-            //url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/getTrainingStatus",
-            url: "http://localhost:60000/getTrainingStatus",
+            url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/getTrainingStatus",
+            //url: "http://localhost:60000/getTrainingStatus",
             type: "GET",
             success: function (data) {
 
@@ -153,8 +153,8 @@ $(function () {
     $('#trainer-pct').html("50%");
     $('#trainer-status-bar').width("50%");
     $.ajax({
-            //url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/killTrainer",
-            url: "http://localhost:60000/killTrainer",
+            url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/killTrainer",
+            //url: "http://localhost:60000/killTrainer",
             type: "GET",
             success: function (data) {
 
@@ -179,8 +179,8 @@ $(function () {
     $('#trainer-status-bar').width("50%");
     var params = {modelname: JSON.stringify(modelname), modeltype: JSON.stringify(modeltype), features: JSON.stringify(features)};
     $.ajax({
-            //url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/getAvailableFeatures",
-            url: "http://localhost:60000/trainModel",
+            url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/getAvailableFeatures",
+            //url: "http://localhost:60000/trainModel",
             data: params,
             type: "GET",
             success: function (data) {
@@ -213,8 +213,8 @@ $(function () {
     $('#load-status-bar').width("50%");
     var params = {modelname: JSON.stringify(modelname)};
     $.ajax({
-            //url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/reloadModel",
-            url: "http://localhost:60000/reloadModel",
+            url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/reloadModel",
+            //url: "http://localhost:60000/reloadModel",
             data: params,
             type: "GET",
             success: function (data) {
