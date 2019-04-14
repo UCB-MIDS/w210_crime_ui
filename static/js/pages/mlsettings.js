@@ -181,7 +181,7 @@ $(function () {
     $('#trainer-status-bar').width("50%");
     var params = {modelname: JSON.stringify(modelname), modeltype: JSON.stringify(modeltype), features: JSON.stringify(features)};
     $.ajax({
-            url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/getAvailableFeatures",
+            url: "http://w210-crime-machine-learning.us-east-1.elasticbeanstalk.com/trainModel",
             //url: "http://localhost:60000/trainModel",
             data: params,
             type: "GET",
