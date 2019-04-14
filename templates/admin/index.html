@@ -126,20 +126,21 @@
 {% else %}
 
 <center>
-    <section class="content" style="color: white">
+    <section class="content" style="color: white; height: 100vh;">
         <div class="col-sm-12">
-            <h1>Flask-Admin example</h1>
+            <img src="../static/img/optipol-logo-white.svg">
             <p class="lead">
                 Authentication
             </p>
             <p>
-                This example shows how you can use Flask-Admin in an admin template, <br> here I used AdminLTE and <a href="https://pythonhosted.org/Flask-Security/index.html" target="_blank">Flask-Security</a> for authentication.
+                Welcome to the live demo of <b>OptiPol</b>. In this demo, editing of all data fields except number of patrols is disabled.
+                <br>You have access to all the other functionality such as optimizing deployments and switching and training models.
             </p>
             {% if not current_user.is_authenticated %}
-            <p>You can register as a regular user, or log in as a superuser with the following credentials: <br><br>
+            <p><b>OptiPol</b> supports user authentication out-of-the-box. To use this demo, log in with the following credentials: <br><br>
 
-                email: <b>admin</b> <br>
-                password: <b>admin</b> <br>
+                Email: <b>admin</b> <br>
+                Password: <b>admin</b> <br>
                 <br>
                 <p>
                     <a class="btn btn-primary" href="{{ url_for('security.login') }}">Login</a> <a class="btn btn-default" href="{{ url_for('security.register') }}">Register</a>
@@ -152,9 +153,6 @@
             </div>
         </section>
     </center>
-
-    <br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br>
  {% endif %}
 
   {% endblock body %}
